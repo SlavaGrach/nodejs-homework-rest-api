@@ -1,24 +1,24 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+const contactsOperation = require('../../model/contacts/');
+const contactsCtrl = require('../../controllers/contacts');
 
-router.get('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+// возвращает массив всех контактов в json-формате со статусом 200
+router.get('/', contactsCtrl.getAllContacts);
 
-router.post('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+// если такой id есть, возвращает обьект контакта в json-формате со статусом 200
+// если такого id нет, возвращает json с ключом "message": "Not found" и статусом 404
+router.get('/:contactId', contactsCtrl.getContactById);
 
-router.delete('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+// По результату работы функции возвращает объект с добавленным id {id, name, email, phone} и статусом 201
+router.post('/', contactsCtrl.addContact);
 
-router.patch('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+// если такой id есть, возвращает json формата {"message": "contact deleted"} и статусом 200
+// если такого id нет, возвращает json с ключом "message": "Not found" и статусом 404
+router.delete('/:contactId', contactsCtrl.removeContactById);
 
-module.exports = router
+// По результату работы функции возвращает обновленный объект контакта и статусом 200. В противном случае, возвращает json с ключом "message": "Not found" и статусом 404
+router.put('/:contactId', contactsCtrl.updateContactById);
+
+module.exports = router;
