@@ -18,6 +18,8 @@ mongoose
     });
   })
   .catch(error => {
-    console.log(error.message);
-    process.exit(1);
+    console.log(`Error: ${error.message}`);
+    server.close(() => {
+      return process.exit(1);
+    });
   });
