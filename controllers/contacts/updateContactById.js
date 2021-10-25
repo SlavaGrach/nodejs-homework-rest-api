@@ -1,19 +1,22 @@
-const contactsOperation = require('../../model/contacts/');
-const { contactsSchema } = require('../../schemas/');
+const { Contact } = require('../../models/contact');
+const { joiSchema } = require('../../models/contact/contact');
 
 const updateContactById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const body = req.body; // тело запроса с параметрвми объекта контакт
 
-    const { error } = contactsSchema.validate(body);
+    const { error } = joiSchema.validate(body);
     if (error) {
       const err = new Error(error.message);
       err.status = 404;
       throw err;
     }
 
-    const result = await contactsOperation.updateContactById(contactId, body);
+    const result = await Contact.findByIdAndUpdate(contactId, body, {
+      new: true,
+    });
+
     if (!result) {
       const error = new Error(`Contact with id=${contactId} not found`);
       error.status = 404;

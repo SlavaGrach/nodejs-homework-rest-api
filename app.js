@@ -1,3 +1,7 @@
+// Grachv
+// VZpGRkcKN08WeCdh
+// mongodb+srv://Grachv:VZpGRkcKN08WeCdh@cluster0.ohi6g.mongodb.net/db-contacts?retryWrites=true&w=majority
+
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');

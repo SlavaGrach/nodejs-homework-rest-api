@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const contactsOperation = require('../../model/contacts/');
+const contactsOperation = require('../../models/contact/');
 const contactsCtrl = require('../../controllers/contacts');
 
 // возвращает массив всех контактов в json-формате со статусом 200
@@ -20,5 +20,8 @@ router.delete('/:contactId', contactsCtrl.removeContactById);
 
 // По результату работы функции возвращает обновленный объект контакта и статусом 200. В противном случае, возвращает json с ключом "message": "Not found" и статусом 404
 router.put('/:contactId', contactsCtrl.updateContactById);
+
+// обновления статуса контакта
+router.patch('/:contactId/favorite', contactsCtrl.updateStatusContact);
 
 module.exports = router;

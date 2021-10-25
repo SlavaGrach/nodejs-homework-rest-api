@@ -1,9 +1,9 @@
-const contactsOperation = require('../../model/contacts/');
+const { Contact } = require('../../models/contact');
 
 const getContactById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-    const result = await contactsOperation.getContactById(contactId);
+    const result = await Contact.findById(contactId);
     // проверка на наличие контакта с определенным Id, если такого контакта нет, то отправляем ответ сервера...
     if (!result) {
       const error = new Error(`Contact with id=${contactId} not found`);
