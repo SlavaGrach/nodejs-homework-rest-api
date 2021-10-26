@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+require('dotenv').config({ path: './config/config.env' });
 
 const app = require('../app');
 
@@ -18,10 +18,8 @@ mongoose
     });
   })
   .catch(error => {
-    console.log(error.message);
-    process.exit(1);
+    console.log(`Error: ${error.message}`);
+    server.close(() => {
+      return process.exit(1);
+    });
   });
-
-// app.listen(PORT, () => {
-//   console.log(`Server running. Use our API on port: ${PORT}`);
-// });
